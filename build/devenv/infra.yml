@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+  db:
+    image: postgres:14.1
+    container_name: struktura-dev-db
+    environment:
+      - POSTGRES_DB=struktura
+      - POSTGRES_USER=struktura
+      - POSTGRES_PASSWORD=struktura
+    ports:
+      - ${DB_PORT-54321}:5432
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    command: [ "postgres", "-c", "log_statement=all" ]
