@@ -2,6 +2,7 @@
 package ru.sabah.struktura;
 
 import java.util.Collections;
+import java.util.Date;
 
 import javax.inject.Inject;
 import javax.json.Json;
@@ -15,12 +16,13 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import ru.sabah.struktura.entities.Account;
+import ru.sabah.struktura.services.accounts.Accounts;
 
 /**
  * A simple JAX-RS resource to greet you. Examples:
  *
  * Get default greeting message:
- * curl -X GET http://localhost:8080/greet
  *
  * The message is returned as a JSON object.
  */
@@ -38,6 +40,9 @@ public class GreetResource {
     @PersistenceContext(unitName = "master")
     private EntityManager entityManager;
 
+    @Inject
+    Accounts accs;
+
     /**
      * Return a worldly greeting message.
      *
@@ -46,9 +51,9 @@ public class GreetResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject getDefaultMessage() {
-        Ttt ttt = entityManager.find(Ttt.class, 1);
-        System.out.println(ttt);
-
+//        Ttt ttt = entityManager.find(Ttt.class, 1);
+//        System.out.println(ttt);
+//
         String msg = String.format("%s %s!", message, "World");
         return JSON.createObjectBuilder()
                 .add("message", msg)

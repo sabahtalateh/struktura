@@ -1,0 +1,28 @@
+server:
+  host: 0.0.0.0
+  port: 8081
+
+metrics:
+  rest-request:
+    enabled: false
+
+app:
+  greeting: Hello
+
+javax:
+  sql:
+    DataSource:
+      master:
+        dataSourceClassName: org.postgresql.ds.PGSimpleDataSource
+        dataSource:
+          url: jdbc:postgresql://127.0.0.1:54321/struktura
+          user: struktura
+          password: struktura
+
+mp:
+  graphql:
+    defaultErrorMessage: not_gut
+    exceptionsWhiteList: ru.sabah.struktura.services.ServiceException
+
+health:
+  web-context: "myhealth"
