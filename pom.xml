@@ -227,28 +227,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok-maven-plugin</artifactId>
-                <version>1.18.20.0</version>
-                <executions>
-                    <execution>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>delombok</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <sourceDirectory>${lombokSource}</sourceDirectory>
-                    <verbose>true</verbose>
-                    <formatPreferences>
-                        <generateDelombokComment>skip</generateDelombokComment>
-                        <javaLangAsFQN>skip</javaLangAsFQN>
-                        <suppressWarnings>skip</suppressWarnings>
-                    </formatPreferences>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 </project>
