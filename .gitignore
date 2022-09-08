@@ -17,3 +17,5 @@ buildNumber.properties
 /build/devenv/pgdata/
 /build/devenv/application.yaml
 /src/main/resources/application.yaml
+/ObjectStore/
+/.jpb/
