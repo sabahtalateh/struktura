@@ -18,8 +18,10 @@ dev-env:
 	cp ${DEV_CONF} ${SERVER_CONF}
 	cp ${DEV_APP} ${SERVER_APP}
 
-dev-server: dev-env
+dev-server-build: dev-env
 	./mvnw clean package
+
+dev-server: dev-env dev-server-build
 	java -jar target/struktura.jar
 
 dev-native:
@@ -28,9 +30,6 @@ dev-native:
 
 goose-install:
 	go install github.com/pressly/goose/v3/cmd/goose@latest
-
-dev-goose-create:
-	goose -dir migrations postgres "${DEV_DB_URI}" up
 
 dev-goose-up:
 	goose -dir migrations postgres "${DEV_DB_URI}" up

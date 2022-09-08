@@ -9,8 +9,11 @@
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL10Dialect"/>
+            <property name="hibernate.physical_naming_strategy"
+                      value="ru.sabah.struktura.hibernate.SnakeCase"/>
             <property name="jakarta.persistence.schema-generation.database.action" value="none"/>
             <property name="show_sql" value="true"/>
+
         </properties>
     </persistence-unit>
 </persistence>

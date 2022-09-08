@@ -1,8 +1,7 @@
-package ru.sabah.struktura.entities;
+package ru.sabah.struktura.models;
 
 import lombok.*;
 import lombok.experimental.Accessors;
-import org.eclipse.microprofile.graphql.Type;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -11,19 +10,19 @@ import java.util.Date;
 @Getter
 @Setter
 @Accessors(chain = true)
-@ToString
-public class Account {
+@Table(name = "users")
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(nullable = false)
     private Long id;
 
-    @Column(name = "email")
-    private String email;
+    @Column(nullable = false)
+    private String username;
 
-    @Column(name = "password")
+    @Column(nullable = false)
     private String password;
 
-    @Column(name = "registered_at")
+    @Column(nullable = false)
     private Date registeredAt;
 }

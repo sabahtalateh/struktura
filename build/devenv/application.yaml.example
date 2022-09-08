@@ -22,7 +22,7 @@ javax:
 mp:
   graphql:
     defaultErrorMessage: not_gut
-    exceptionsWhiteList: ru.sabah.struktura.services.ServiceException
+    exceptionsWhiteList: ru.sabah.struktura.services.ServiceError
 
 health:
   web-context: "myhealth"
