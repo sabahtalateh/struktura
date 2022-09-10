@@ -3,9 +3,10 @@ package ru.sabah.struktura.healthchecks;
 import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.Initialized;
-import javax.enterprise.event.Observes;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.Initialized;
+import jakarta.enterprise.event.Observes;
+
 import java.time.Duration;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -21,7 +22,7 @@ public class Readiness implements HealthCheck {
     @Override
     public HealthCheckResponse call() {
         return HealthCheckResponse.named("ReadinessCheck")
-                .state(isReady())
+                .status(isReady())
                 .withData("time", readyTime.get())
                 .build();
     }

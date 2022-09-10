@@ -2,9 +2,9 @@ package ru.sabah.struktura.handlers.filters;
 
 import ru.sabah.struktura.handlers.Response;
 
-import javax.ws.rs.container.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.ext.Provider;
+import jakarta.ws.rs.container.*;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.ext.Provider;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 

@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.Duration;
 import java.util.Date;
 
@@ -29,10 +29,10 @@ public class Token {
     @Column(nullable = false)
     private String refresh;
 
-    @Column(nullable = false)
+    @Column(name = "expires_at", nullable = false)
     private Date expiresAt;
 
-    @Column(nullable = false)
+    @Column(name = "refresh_expires_at", nullable = false)
     private Date refreshExpiresAt;
 
     public Duration calcExpires() {

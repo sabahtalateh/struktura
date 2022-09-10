@@ -7,11 +7,11 @@ import ru.sabah.struktura.models.Token;
 import ru.sabah.struktura.models.User;
 import ru.sabah.struktura.services.crypt.Passwords;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;

@@ -3,7 +3,7 @@ package ru.sabah.struktura.models;
 import lombok.*;
 import lombok.experimental.Accessors;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -23,6 +23,6 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
+    @Column(name = "registered_at", nullable = false)
     private Date registeredAt;
 }

@@ -5,7 +5,7 @@ import ru.sabah.struktura.models.User;
 
 import java.security.Principal;
 
-public class SecurityContext implements javax.ws.rs.core.SecurityContext {
+public class SecurityContext implements jakarta.ws.rs.core.SecurityContext {
 
     private final ru.sabah.struktura.security.Principal principal;
 

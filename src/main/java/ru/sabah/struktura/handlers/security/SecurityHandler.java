@@ -4,25 +4,24 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import ru.sabah.struktura.handlers.BaseHandler;
 import ru.sabah.struktura.handlers.IsoOffset;
 import ru.sabah.struktura.handlers.Response;
 import ru.sabah.struktura.models.User;
 import ru.sabah.struktura.services.security.Security;
 
-import javax.inject.Inject;
-import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.SecurityContext;
+import jakarta.inject.Inject;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.SecurityContext;
 
 import java.util.Date;
 
 @Path("/v1")
-public class SecurityHandler extends BaseHandler {
+public class SecurityHandler {
 
     @Inject
     private Security security;
