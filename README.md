@@ -14,3 +14,5 @@
 make just-tools
 make just-run
 ```
+
+После чего можно посмотреть swagger http://localhost:8080/api/swagger
