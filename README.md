@@ -12,5 +12,5 @@
 
 ```
 make just-tools
-make just-run-it
+make just-run
 ```

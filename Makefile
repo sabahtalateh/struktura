@@ -11,7 +11,7 @@ DEV_DB_URI=host=127.0.0.1 port=${DEV_DB_PORT} user=struktura password=struktura 
 just-tools:
 	go install github.com/pressly/goose/v3/cmd/goose@latest
 
-just-run-it:
+just-run:
 	DB_PORT=${DEV_DB_PORT} docker-compose -f build/devenv/infra.yml up -d
 	goose -dir migrations postgres "${DEV_DB_URI}" up
 	cp ${DEV_CONF_EXAMPLE} ${SERVER_CONF}
@@ -19,7 +19,7 @@ just-run-it:
 	./mvnw clean package
 	java -jar target/struktura.jar
 
-just-stop-it: dev-infra-down
+just-stop: dev-infra-down
 
 # ====== FRONTENDERS SECTION ======
 
