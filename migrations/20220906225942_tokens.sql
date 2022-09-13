@@ -6,8 +6,8 @@ CREATE TABLE tokens
     user_id            BIGINT unique                           NOT NULL,
     access             VARCHAR unique                          NOT NULL,
     refresh            VARCHAR unique                          NOT NULL,
-    expires_at         TIMESTAMP WITH TIME ZONE                NOT NULL,
-    refresh_expires_at TIMESTAMP WITH TIME ZONE                NOT NULL,
+    expires_at         TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    refresh_expires_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
     CONSTRAINT pk_tokens PRIMARY KEY (id)
 );
 

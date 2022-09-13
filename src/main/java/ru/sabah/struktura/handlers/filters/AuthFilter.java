@@ -11,7 +11,11 @@ import jakarta.ws.rs.container.ContainerRequestFilter;
 import jakarta.ws.rs.container.PreMatching;
 import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.ext.Provider;
+
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -19,15 +23,17 @@ import java.util.List;
 @PreMatching
 public class AuthFilter implements ContainerRequestFilter {
 
-    @Inject
-    @ConfigProperty(name = "security.noAuthUrls")
-    List<String> noAuth;
+    List<String> noAuth = new ArrayList<>(Arrays.asList(
+            "/api/v1/register",
+            "/api/v1/login",
+            "/api/swagger"
+    ));
 
     @Inject
     private Security security;
 
     @Override
-    public void filter(ContainerRequestContext request) throws IOException {
+    public void filter(ContainerRequestContext request) throws NotAuthorizedException {
         var path = request.getUriInfo().getAbsolutePath().getPath();
         if (noAuth.contains(path)) {
             return;
@@ -43,7 +49,7 @@ public class AuthFilter implements ContainerRequestFilter {
         }
 
         var bearer = authHeader.substring("Bearer ".length()).trim();
-        var user = security.findUserByAccess(bearer, new Date());
+        var user = security.findUserByAccess(bearer, LocalDateTime.now());
         if (user == null) {
             throw new NotAuthorizedException("Bearer");
         }

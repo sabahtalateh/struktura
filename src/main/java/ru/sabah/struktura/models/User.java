@@ -4,6 +4,8 @@ import lombok.*;
 import lombok.experimental.Accessors;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -23,6 +25,6 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Column(name = "registered_at", nullable = false)
-    private Date registeredAt;
+    @Column(nullable = false)
+    private LocalDateTime registeredAt;
 }

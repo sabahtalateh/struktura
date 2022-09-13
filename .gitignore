@@ -18,4 +18,5 @@ buildNumber.properties
 /build/devenv/application.yaml
 /src/main/resources/application.yaml
 /ObjectStore/
+/PutObjectStoreDirHere/
 /.jpb/

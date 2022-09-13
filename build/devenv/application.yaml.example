@@ -1,10 +1,52 @@
 server:
   host: 0.0.0.0
-  port: 8081
+  port: 8080
+
+health:
+  web-context: myhealth
 
 metrics:
+  registries:
+    - type: base
+      enabled: true
+    - type: vendor
+      enables: false
   rest-request:
-    enabled: false
+    enabled: true
+
+tracing:
+  service: "struktura"
+  protocol: "http"     # JAEGER_ENDPOINT (if not udp, http is expected and endpoint is filled)
+  host: "localhost"   # JAEGER_ENDPOINT
+  paths:
+    - path: "/metrics"
+      enabled: true
+    - path: "/health"
+      enabled: true
+    - path: "/greet"
+      enabled: true
+  propagation: "jaeger"     # JAEGER_PROPAGATION either "jaeger" or "b3"
+  log-spans: true           # JAEGER_REPORTER_LOG_SPANS
+  max-queue-size: 42        # JAEGER_REPORTER_MAX_QUEUE_SIZE
+  flush-interval-ms: 10001  # JAEGER_REPORTER_FLUSH_INTERVAL
+
+#tracing:
+#  service: "struktura"
+#  protocol: "http"     # JAEGER_ENDPOINT (if not udp, http is expected and endpoint is filled)
+#  host: "localhost"    # JAEGER_ENDPOINT
+#  port: 14268
+#  path: /api/traces
+##  paths:
+##    - path: "/metrics"
+##      enabled: true
+##    - path: "/health"
+##      enabled: true
+##    - path: "/greet"
+##      enabled: true
+#  propagation: "jaeger" # JAEGER_PROPAGATION either "jaeger" or "b3"
+#  log-spans: true       # JAEGER_REPORTER_LOG_SPANS
+#  max-queue-size: 42    # JAEGER_REPORTER_MAX_QUEUE_SIZE
+#  flush-interval-ms: 1000 # JAEGER_REPORTER_FLUSH_INTERVAL
 
 app:
   greeting: Hello
@@ -21,8 +63,9 @@ javax:
 
 mp:
   graphql:
-    defaultErrorMessage: not_gut
-    exceptionsWhiteList: ru.sabah.struktura.services.ServiceError
+    defaultErrorMessage: server_fucked_up
+    exceptionsWhiteList: ru.sabah.struktura.services.ServiceException
 
-health:
-  web-context: "myhealth"
+security:
+  accessLifetimeSeconds: 3600     # 1 hour
+  refreshLifetimeSeconds: 1209600 # 14 days

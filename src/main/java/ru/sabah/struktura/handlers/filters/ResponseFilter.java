@@ -5,16 +5,15 @@ import ru.sabah.struktura.handlers.Response;
 import jakarta.ws.rs.container.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.ext.Provider;
+
 import java.io.IOException;
 import java.lang.annotation.Annotation;
-
-import static java.net.HttpURLConnection.HTTP_OK;
 
 @Provider
 @PreMatching
 public class ResponseFilter implements ContainerResponseFilter {
     @Override
-    public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext) throws IOException {
+    public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext) {
         var entity = responseContext.getEntity();
         if (entity instanceof Response<?>) {
             responseContext.setStatus(((Response<?>) entity).getCode());

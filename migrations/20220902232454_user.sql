@@ -2,10 +2,10 @@
 -- +goose StatementBegin
 CREATE TABLE users
 (
-    id            SERIAL                   NOT NULL,
-    username      VARCHAR UNIQUE           NOT NULL,
-    password      VARCHAR                  NOT NULL,
-    registered_at TIMESTAMP WITH TIME ZONE NOT NULL,
+    id            SERIAL                      NOT NULL,
+    username      VARCHAR UNIQUE              NOT NULL,
+    password      VARCHAR                     NOT NULL,
+    registered_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
     CONSTRAINT pk_users PRIMARY KEY (id)
 );
 -- +goose StatementEnd

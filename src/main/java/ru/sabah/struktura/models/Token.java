@@ -5,7 +5,10 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import jakarta.persistence.*;
+
 import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 @Entity
@@ -29,13 +32,17 @@ public class Token {
     @Column(nullable = false)
     private String refresh;
 
-    @Column(name = "expires_at", nullable = false)
-    private Date expiresAt;
+    @Column(nullable = false)
+    private LocalDateTime expiresAt;
 
-    @Column(name = "refresh_expires_at", nullable = false)
-    private Date refreshExpiresAt;
+    @Column(nullable = false)
+    private LocalDateTime refreshExpiresAt;
 
     public Duration calcExpires() {
-        return Duration.ofMillis(this.getExpiresAt().getTime() - new Date().getTime());
+        var diff = ChronoUnit.SECONDS.between(LocalDateTime.now(), this.getExpiresAt());
+        if (diff < 0) {
+            diff = 0;
+        }
+        return Duration.ofSeconds(diff);
     }
 }

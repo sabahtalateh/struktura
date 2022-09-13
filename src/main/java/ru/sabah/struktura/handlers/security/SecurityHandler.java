@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import ru.sabah.struktura.handlers.IsoOffset;
 import ru.sabah.struktura.handlers.Response;
 import ru.sabah.struktura.models.User;
 import ru.sabah.struktura.services.security.Security;
@@ -18,6 +17,7 @@ import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.SecurityContext;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Path("/v1")
@@ -35,7 +35,7 @@ public class SecurityHandler {
                 new User()
                         .setUsername(user.getUsername())
                         .setPassword(user.getPassword())
-                        .setRegisteredAt(new Date())
+                        .setRegisteredAt(LocalDateTime.now())
         );
         return Response.ok(new Registered()
                 .setUsername(u.getUsername())
@@ -109,8 +109,7 @@ class Registered {
     @NotEmpty
     private String username;
     @NotEmpty
-    @JsonSerialize(using = IsoOffset.class)
-    private Date registeredAt;
+    private LocalDateTime registeredAt;
 }
 
 @Getter

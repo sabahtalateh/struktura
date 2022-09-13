@@ -1,12 +1,28 @@
-DEV_CONF=build/devenv/microprofile-config.properties
+DEV_CONF_EXAMPLE=build/devenv/microprofile-config.properties.example
 SERVER_CONF=src/main/resources/META-INF/microprofile-config.properties
-DEV_APP=build/devenv/application.yaml
+DEV_APP_EXAMPLE=build/devenv/application.yaml.example
 SERVER_APP=src/main/resources/application.yaml
 
-DEV_DB_URI=host=127.0.0.1 port=54321 user=struktura password=struktura dbname=struktura sslmode=disable binary_parameters=yes
+DEV_DB_PORT=54321
+DEV_DB_URI=host=127.0.0.1 port=${DEV_DB_PORT} user=struktura password=struktura dbname=struktura sslmode=disable binary_parameters=yes
+
+# ====== FRONTENDERS SECTION ======
+
+just-run-it:
+	DB_PORT=${DEV_DB_PORT} docker-compose -f build/devenv/infra.yml up -d
+	go install github.com/pressly/goose/v3/cmd/goose@latest
+	goose -dir migrations postgres "${DEV_DB_URI}" up
+	cp ${DEV_CONF_EXAMPLE} ${SERVER_CONF}
+	cp ${DEV_APP_EXAMPLE} ${SERVER_APP}
+	./mvnw clean package
+	java -jar target/struktura.jar
+
+just-stop-it: dev-infra-down
+
+# ====== FRONTENDERS SECTION ======
 
 dev-infra-up:
-	docker-compose -f build/devenv/infra.yml up -d
+	DB_PORT=${DEV_DB_PORT} docker-compose -f build/devenv/infra.yml up -d
 
 dev-infra-down:
 	docker-compose -f build/devenv/infra.yml down
@@ -14,19 +30,11 @@ dev-infra-down:
 dev-infra-ls:
 	docker-compose -f build/devenv/infra.yml ls
 
-dev-env:
-	cp ${DEV_CONF} ${SERVER_CONF}
-	cp ${DEV_APP} ${SERVER_APP}
-
-dev-server-build: dev-env
+dev-server-build:
 	./mvnw clean package
 
-dev-server: dev-env dev-server-build
+dev-server: dev-server-build
 	java -jar target/struktura.jar
-
-dev-native:
-	./mvnw clean package -Pnative-image
-	./target/struktura
 
 goose-install:
 	go install github.com/pressly/goose/v3/cmd/goose@latest

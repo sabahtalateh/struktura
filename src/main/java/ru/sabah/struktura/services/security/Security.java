@@ -1,8 +1,6 @@
 package ru.sabah.struktura.services.security;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-import org.joda.time.DateTime;
-import org.joda.time.Duration;
 import ru.sabah.struktura.models.Token;
 import ru.sabah.struktura.models.User;
 import ru.sabah.struktura.services.crypt.Passwords;
@@ -12,6 +10,9 @@ import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
+
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -33,8 +34,8 @@ public class Security {
             @ConfigProperty(name = "security.accessLifetimeSeconds") int accessLifetime,
             @ConfigProperty(name = "security.refreshLifetimeSeconds") int refreshLifetime
     ) {
-        this.accessLifetime = org.joda.time.Duration.millis(accessLifetime * 1000L);
-        this.refreshLifetime = org.joda.time.Duration.millis(refreshLifetime * 1000L);
+        this.accessLifetime = Duration.ofSeconds(accessLifetime);
+        this.refreshLifetime = Duration.ofSeconds(refreshLifetime);
     }
 
     @Transactional
@@ -78,9 +79,10 @@ public class Security {
                 .setUser(user)
                 .setAccess(UUID.randomUUID().toString())
                 .setRefresh(UUID.randomUUID().toString())
-                .setExpiresAt(new DateTime().plus(accessLifetime).toDate())
-                .setRefreshExpiresAt(new DateTime().plus(refreshLifetime).toDate());
+                .setExpiresAt(LocalDateTime.now().plus(accessLifetime))
+                .setRefreshExpiresAt(LocalDateTime.now().plus(refreshLifetime));
         em.persist(t);
+        em.flush();
 
         return t;
     }
@@ -117,14 +119,15 @@ public class Security {
                 .setUser(user)
                 .setAccess(UUID.randomUUID().toString())
                 .setRefresh(UUID.randomUUID().toString())
-                .setExpiresAt(new DateTime().plus(accessLifetime).toDate())
-                .setRefreshExpiresAt(new DateTime().plus(refreshLifetime).toDate());
+                .setExpiresAt(LocalDateTime.now().plus(accessLifetime))
+                .setRefreshExpiresAt(LocalDateTime.now().plus(refreshLifetime));
         em.persist(t);
+        em.flush();
 
         return t;
     }
 
-    public User findUserByAccess(String access, Date now) {
+    public User findUserByAccess(String access, LocalDateTime now) {
         List<?> res = em.createQuery("""
                         select t.user from Token t
                         where t.access = :access
