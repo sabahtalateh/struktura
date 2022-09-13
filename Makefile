@@ -4,13 +4,15 @@ DEV_APP_EXAMPLE=build/devenv/application.yaml.example
 SERVER_APP=src/main/resources/application.yaml
 
 DEV_DB_PORT=54321
-DEV_DB_URI=host=127.0.0.1 port=${DEV_DB_PORT} user=struktura password=struktura dbname=struktura sslmode=disable binary_parameters=yes
+DEV_DB_URI=host=127.0.0.1 port=${DEV_DB_PORT} user=struktura password=struktura dbname=struktura sslmode=disable
 
 # ====== FRONTENDERS SECTION ======
 
+just-tools:
+	go install github.com/pressly/goose/v3/cmd/goose@latest
+
 just-run-it:
 	DB_PORT=${DEV_DB_PORT} docker-compose -f build/devenv/infra.yml up -d
-	go install github.com/pressly/goose/v3/cmd/goose@latest
 	goose -dir migrations postgres "${DEV_DB_URI}" up
 	cp ${DEV_CONF_EXAMPLE} ${SERVER_CONF}
 	cp ${DEV_APP_EXAMPLE} ${SERVER_APP}
