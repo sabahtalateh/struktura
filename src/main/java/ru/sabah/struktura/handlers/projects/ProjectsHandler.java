@@ -48,8 +48,6 @@ public class ProjectsHandler {
                 .setName(x.getName())
         ).collect(Collectors.toList()));
     }
-
-
 }
 
 @Getter

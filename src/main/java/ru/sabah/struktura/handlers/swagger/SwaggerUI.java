@@ -9,7 +9,7 @@ import jakarta.ws.rs.core.Response;
 import lombok.NoArgsConstructor;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
-@Path("swagger")
+@Path("/swagger")
 @NoArgsConstructor
 public class SwaggerUI {
 
@@ -19,10 +19,7 @@ public class SwaggerUI {
             <head>
               <meta charset="utf-8" />
               <meta name="viewport" content="width=device-width, initial-scale=1" />
-              <meta
-                name="description"
-                content="SwaggerUI"
-              />
+              <meta name="description" content="SwaggerUI"/>
               <title>SwaggerUI</title>
               <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@4.5.0/swagger-ui.css" />
             </head>
