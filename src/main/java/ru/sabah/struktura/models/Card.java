@@ -7,16 +7,14 @@ import lombok.experimental.Accessors;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @Getter
 @Setter
 @Accessors(chain = true)
-@Table(name = "tasks")
-public class Task {
+@Table(name = "cards")
+public class Card {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)

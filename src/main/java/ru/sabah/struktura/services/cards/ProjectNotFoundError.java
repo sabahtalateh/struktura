@@ -1,4 +1,4 @@
-package ru.sabah.struktura.services.tasks;
+package ru.sabah.struktura.services.cards;
 
 import ru.sabah.struktura.services.ServiceError;
 

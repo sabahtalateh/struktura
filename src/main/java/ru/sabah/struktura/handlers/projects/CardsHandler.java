@@ -10,27 +10,27 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import ru.sabah.struktura.handlers.Response;
-import ru.sabah.struktura.services.tasks.Tasks;
+import ru.sabah.struktura.services.cards.Cards;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Path("/v1")
-public class TasksHandler {
+public class CardsHandler {
 
     @Inject
-    private Tasks tasks;
+    private Cards cards;
 
     @GET()
-    @Path("/projects/{project}/tasks")
+    @Path("/projects/{project}/cards")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response<List<Task>> tasks(@PathParam("project") String project) {
-        var res = tasks.projectTasks(project);
+    public Response<List<Card>> cards(@PathParam("project") String project) {
+        var res = cards.projectCards(project);
 
         return Response.ok(
                 res.stream()
-                        .map(x -> new Task()
+                        .map(x -> new Card()
                                 .setTitle(x.getTitle())
                                 .setDescription(x.getDescription())
                         )
@@ -39,21 +39,21 @@ public class TasksHandler {
     }
 
     @POST()
-    @Path("/projects/{project}/task")
+    @Path("/projects/{project}/card")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response<Task> createTask(
+    public Response<Card> createCard(
             @PathParam("project") String project,
-            @NotNull @Valid Task task
+            @NotNull @Valid Card card
     ) {
-        var t = tasks.createTask(
+        var t = cards.createCard(
                 project,
-                new ru.sabah.struktura.models.Task()
-                        .setTitle(task.getTitle())
-                        .setDescription(task.getDescription())
+                new ru.sabah.struktura.models.Card()
+                        .setTitle(card.getTitle())
+                        .setDescription(card.getDescription())
         );
 
-        return Response.ok(new Task()
+        return Response.ok(new Card()
                 .setTitle(t.getTitle())
                 .setDescription(t.getDescription())
         );
@@ -63,7 +63,7 @@ public class TasksHandler {
 @Getter
 @Setter
 @Accessors(chain = true)
-class Task {
+class Card {
     @NotEmpty
     private String title;
     @NotEmpty

@@ -1,38 +1,37 @@
-package ru.sabah.struktura.services.tasks;
+package ru.sabah.struktura.services.cards;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
-import jakarta.ws.rs.NotFoundException;
 import ru.sabah.struktura.models.Project;
-import ru.sabah.struktura.models.Task;
+import ru.sabah.struktura.models.Card;
 
 import java.util.List;
 
 @ApplicationScoped
-public class Tasks {
+public class Cards {
 
     @PersistenceContext(unitName = "master")
     private EntityManager em;
 
-    public List<Task> projectTasks(String project) {
-        List<?> l = em.createQuery("select t from Task t where t.project.id = :project")
+    public List<Card> projectCards(String project) {
+        List<?> l = em.createQuery("select t from Card t where t.project.id = :project")
                 .setParameter("project", project)
                 .getResultList();
 
-        return (List<Task>) l;
+        return (List<Card>) l;
     }
 
     @Transactional
-    public Task createTask(String project, Task task) {
+    public Card createCard(String project, Card card) {
         if (em.find(Project.class, project) == null) {
             throw new ProjectNotFoundError();
         }
-        task.setProject(new Project().setId(project));
-        em.persist(task);
+        card.setProject(new Project().setId(project));
+        em.persist(card);
         em.flush();
 
-        return task;
+        return card;
     }
 }

@@ -1,4 +1,4 @@
-package ru.sabah.struktura.services.tasks;
+package ru.sabah.struktura.services.cards;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;

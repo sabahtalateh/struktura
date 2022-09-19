@@ -10,7 +10,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import ru.sabah.struktura.handlers.Response;
-import ru.sabah.struktura.services.tasks.Projects;
+import ru.sabah.struktura.services.cards.Projects;
 
 import java.util.List;
 import java.util.stream.Collectors;
